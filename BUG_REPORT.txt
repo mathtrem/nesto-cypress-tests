@@ -1,0 +1,32 @@
+Bug Report
+Nesto Sign up Page
+Environment used:
+https://app.qa.nesto.ca/signup
+Date: 2026-03-14
+Tested by: Mathieu Tremblay
+Browser: Chrome (latest)
+Framework: Cypress 13 + TypeScript
+
+Confirmed Bugs:
+
+BUG-01 - Cookie popup is missing logo
+Severity: Low
+Steps:
+Navigate to https://app.qa.nesto.ca/signup and observe the cookie popup that appears
+Expected : The popup appears correctly with all information
+Actual : Logo is missing from the popup
+
+Investigated but could not be reproduced: 
+
+OBSERVATION-01 - Cookie consent popup reappears on every page load in Cypress
+Note: This is probably due to Cypress clearing cookies between tests.  I tried to repro in Chrome Incognito and was not able to.  The way I went around this in Cypress was by dismissing the popup in beforeEach in code.
+
+OBSERVATION-02 - Email field accepts invalid @@ format in Cypress
+Note: This is most likely also a side effect with the Cypress Browser and due to that, i had to remove the test case from my code.  To make sure, I double checked manually and was not able to go through the form.
+
+OBSERVATION-03 - Page title/heading showed “IG” instead of “nesto”
+Note: Observed during initial automated inspection but could not be reproduced manually via Chrome.  Could have been a temporary misconfiguration or environment specific issue and is probably worth looking into.  Automated tests confirm the title and heading are showing “nesto”.
+
+
+OBSERVATION-04 - Privacy Policy links to ig.ca instead of nesto.ca
+Note: Observed during initial automated inspection but could not be reproduced manually via Chrome.  Could have been a temporary misconfiguration or environment specific issue an dis probably worth looking into.

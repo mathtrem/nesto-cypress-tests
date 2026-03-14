@@ -1,0 +1,10 @@
+{
+  "validData": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "5141234567",
+    "province": "Quebec",
+    "password": "TestPassword1",
+    "confirmPassword": "TestPassword1"
+  }
+}
