@@ -96,12 +96,38 @@ describe('Signup Page', () => {
       password: 'SecurePassword1',
       confirmPassword: 'SecurePassword1',
       consent: true,
-  });
+    });
 
   // Dismiss cookie popup if it reappears before submitting
   cy.get('body').then(($body) => {
-    if ($body.find('button:contains("Agree and close")').length > 0) {
-      cy.contains('button', 'Agree and close').click({force: true});
+    if ($body.find('button:contains("Agree and close"), button:contains("Accepter & Fermer")').length > 0) {
+      cy.contains('button', /agree and close|accepter & fermer/i).click({force: true});
+    }
+  });
+
+  page.clickSubmit();
+
+  cy.url({ timeout: 20000 }).should('not.include', '/signup');
+  });
+
+  it('can create an account with Ontario as province', () => {
+    const email = SignupPage.uniqueEmail();
+
+  page.fillForm({
+    firstName: 'Jane',
+    lastName: 'Smith',
+    phone: '5141234567',
+    province: 'ON',
+    email,
+    password: 'SecurePassword1',
+    confirmPassword: 'SecurePassword1',
+    consent: true,
+  });
+  
+  // Dismiss cookie popup if it reappears before submitting
+  cy.get('body').then(($body) => {
+    if ($body.find('button:contains("Agree and close"), button:contains("Accepter & Fermer")').length > 0) {
+      cy.contains('button', /agree and close|accepter & fermer/i).click({force: true});
     }
   });
 
@@ -250,6 +276,12 @@ describe('Signup Page', () => {
 
     it('Terms of Service link has a valid href', () => {
       page.termsLink.should('have.attr', 'href').and('include', 'nesto.ca');
+    });
+
+    it('Privacy Policy link points to nesto.ca', () => {
+      cy.get('a').contains(/privacy policy|politique de confidentialité/i)
+        .should('have.attr', 'href')
+        .and('include', 'nesto.ca');
     });
 
   });

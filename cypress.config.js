@@ -7,7 +7,7 @@ module.exports = defineConfig({
     viewportHeight: 800,
     defaultCommandTimeout: 10000,
     env: {
-      lang: 'en',
+      lang: 'en', //change 'en' to 'fr' to test in french
     },
     setupNodeEvents(on, config) {
       return config;
