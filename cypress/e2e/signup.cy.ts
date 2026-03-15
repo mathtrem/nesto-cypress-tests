@@ -72,6 +72,13 @@ describe('Signup Page', () => {
       page.termsLink.should('be.visible');
     });
 
+    it('province dropdown contains all Canadian provinces and territories', () => {
+      const provinces = ['ON', 'QC', 'AB', 'BC', 'MB', 'NB', 'NS', 'NL', 'PE', 'SK', 'NT', 'YT', 'NU'];
+      provinces.forEach((province) => {
+        page.provinceSelect.find(`option[value="${province}"]`).should('exist');
+      });
+    });
+
   });
 
   // ── 2. POSITIVE TESTS ──────────────────────────────────────────
@@ -101,12 +108,20 @@ describe('Signup Page', () => {
   page.clickSubmit();
 
   cy.url({ timeout: 20000 }).should('not.include', '/signup');
-});
+  });
 
     it('consent checkbox can be checked and unchecked', () => {
       page.consentCheckbox.check().should('be.checked');
       page.consentCheckbox.uncheck().should('not.be.checked');
     });
+
+    it('can select all provinces of purchase', () => {
+      const provinces = ['ON', 'QC', 'AB', 'BC', 'MB', 'NB', 'NS', 'NL', 'PE', 'SK', 'NT', 'YT', 'NU'];
+      provinces.forEach((province) => {
+        page.selectProvince(province);
+        page.provinceSelect.should('have.value', province);
+    });
+});
 
   });
 
