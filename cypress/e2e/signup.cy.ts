@@ -106,7 +106,8 @@ describe('Signup Page', () => {
   });
 
   page.clickSubmit();
-
+  
+  // Checks if the landing after the submit is on a different page
   cy.url({ timeout: 20000 }).should('not.include', '/signup');
   });
 
